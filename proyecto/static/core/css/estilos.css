@@ -1,0 +1,91 @@
+/* Estilos para el barra de navegación */
+.navbar {
+    background-color: #439A97;
+    color: #fff;
+    padding: 10px 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif; /* Usar fuente Arial o una fuente genérica sans-serif */
+}
+
+.navbar .logo {
+    float: left;
+    font-size: 24px;
+    margin-left: 20px;
+    font-family: Arial, sans-serif; /* Usar fuente Arial o una fuente genérica sans-serif */
+}
+
+.navbar .auth-links {
+    float: right;
+    margin-right: 20px;
+    font-family: Arial, sans-serif; /* Usar fuente Arial o una fuente genérica sans-serif */
+}
+
+.navbar button {
+    background-color: #296364;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para los botones de inicio de sesión y registro */
+.auth-links a {
+    text-decoration: none;
+    color: #fff;
+    margin-left: 20px;
+    font-family: Arial, sans-serif; /* Usar fuente Arial o una fuente genérica sans-serif */
+}
+
+/* Estilos para el contenido principal */
+.content {
+    padding: 20px;
+    min-height: calc(100vh - 170px); /* Altura mínima para evitar que se recorte el contenido */
+}
+
+/* Estilos para el footer */
+footer {
+    background-color: #439A97;
+    color: #fff;
+    padding: 20px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.search-bar {
+    text-align: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-bar button {
+    background-color: #296364;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para el contenedor principal */
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    background-color: #ffffff;
+    
+}
+
+/* Estilos para el contenido principal */
+.content {
+    padding: 20px;
+    min-height: calc(100vh - 170px); /* Altura mínima para evitar que se recorte el contenido */
+}
+
