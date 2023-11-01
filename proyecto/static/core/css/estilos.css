@@ -89,3 +89,51 @@ body {
     min-height: calc(100vh - 170px); /* Altura mínima para evitar que se recorte el contenido */
 }
 
+/* Estilos para el formulario registro */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+}
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    text-align: center;
+    color: #0078D4; /* Color azul de Microsoft */
+}
+label {
+    color: #333;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+input[type="submit"] {
+    background-color: #0078D4;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #005A9E; /* Color azul oscuro de Microsoft al pasar el mouse */
+}
