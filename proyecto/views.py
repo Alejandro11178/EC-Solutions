@@ -1,64 +1,65 @@
-from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from .models import usuario
+from django.shortcuts import render 
+from usuario.models import usuario
+from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.db.models import Q
+from room.models import Room,Message
+from django.contrib.auth.decorators import login_required
 
-# Define las vistas para la aplicación
 
-# Vista de inicio de la página
-def home(request):
-    """
-    Renderiza la página de inicio de la aplicación.
-    """
-    return render(request, 'core/home.html')
+# Create your views here.
 
-# Vista de registro de usuarios
+class Home(ListView):
+    usuarios = usuario.objects.all()
+    niveles = usuario.niveles
+    template_name = 'proyecto/index.html'
+    
+    def get_queryset(self):
+        usuarios = self.usuarios.filter(rol = 'Profesor')
+        nombre = self.request.GET.get('nombre','')
+        nivel = self.request.GET.get('nivel','')
+        materia = self.request.GET.get('materia','')
+        valor = self.request.GET.get('valor','')
+        valor2 = self.request.GET.get('valor2','')
+        if nombre != '':
+            # usuarios = self.usuarios.filter(nombre__icontains=nombre)
+            usuarios = self.usuarios.filter(Q(nombre__icontains=nombre) | Q(apellidos__icontains=nombre))
+            usuarios = usuarios.order_by('precio')
+            
+        if nivel != '':
+            usuarios = self.usuarios.filter(nivel=nivel)
+            usuarios = usuarios.order_by('precio')
+        if materia != '':
+            usuarios = self.usuarios.filter(materia=materia)
+            usuarios = usuarios.order_by('precio')
+        if valor and valor2:
+            usuarios = usuarios.filter(precio__range=(valor, valor2))
+            usuarios = usuarios.order_by('precio')
+        elif valor:
+            usuarios = usuarios.filter(precio__gte=valor)
+            usuarios = usuarios.order_by('precio')
+        elif valor2:
+            usuarios = usuarios.filter(precio__lte=valor2)
+            usuarios = usuarios.order_by('precio')
+        return usuarios
+
+
 def registro(request):
-    """
-    Maneja el proceso de registro de usuarios.
-    Crea un nuevo usuario utilizando el modelo de usuario predeterminado y luego crea un usuario personalizado
-    asignando los campos restantes. Después, autentica al usuario y lo redirige a la página de inicio.
-    """
-    data = {
-        'form': CustomUserCreationForm()
-    }
+    return render(request, 'proyecto/registro.html')
+@login_required
+def Chat_pai(request):
+    rooms = Room.objects.all()
 
-    if request.method == 'POST':
-        formulario = CustomUserCreationForm(data=request.POST)
-        if formulario.is_valid():
-            # Crea un nuevo usuario utilizando el modelo de usuario predeterminado
-            user = User(username=formulario.cleaned_data['nombre'])
-            user.set_password(formulario.cleaned_data["password1"])
-            user.save()
-
-            # Crea un usuario personalizado y asigna los otros campos
-            custom_user = usuario(
-                nombre=formulario.cleaned_data['nombre'],
-                apellido=formulario.cleaned_data['apellido'],
-                correo=formulario.cleaned_data['correo'],
-                telefono=formulario.cleaned_data['telefono'],
-                rol=formulario.cleaned_data['rol'],
-                materia=formulario.cleaned_data['materia'],
-                nivel=formulario.cleaned_data['nivel'],
-                horario=formulario.cleaned_data['horario'],
-                precio=formulario.cleaned_data['precio']
-            )
-            custom_user.save()
-
-            # Autentica al usuario recién creado y redirige a la página de inicio
-            user = authenticate(username=custom_user.nombre, password=formulario.cleaned_data["password1"])
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-        else:
-            data['form'] = formulario
-
-    return render(request, 'registration/registro.html', data)
-
-# Vista de inicio de sesión de usuarios
-def user_login(request):
-    """
-    Renderiza la página de inicio de sesión de usuarios.
-    """
-    return render(request, 'registration/login.html')
+    return render(request, 'proyecto/Chat_pai.html', {'rooms': rooms} )
+@login_required
+def room(request,slug):
+    room = Room.objects.get(slug=slug)
+    messages= Message.objects.filter(room=room)[0:25]
+    try:
+        room = Room.objects.get(slug=slug)
+        # Lógica adicional aquí
+        return render(request, 'proyecto/room.html', {'room': room, 'messages':messages})
+    except Room.DoesNotExist:
+        # Manejo de la excepción cuando la sala no existe
+        return render(request, 'sala_no_existe.html')

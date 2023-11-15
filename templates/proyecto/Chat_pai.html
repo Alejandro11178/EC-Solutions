@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estiloscards.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <title>Listado de Profesores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+{% if user.is_authenticated %}
+
+<body class="bg-teal-600">
+    <nav class="flex items-center justify-content-between px-4 py-6 bg-teal-800">
+        <div>
+            <a href="/" class="text-xl text-white">ProfeDelivery</a>
+        </div>
+    </nav>
+
+    {% block content %}
+    <div class="p-10 lg:p-20 text-center">
+        <h1 class="text-3xl lg:text-6xl text-white">Chat de: {{ user.username }} </h1>
+    </div>
+
+    <div class="w-full flex flex-wrap items-center">
+        {% for room in rooms %}
+        <div class="w-full lg:w-1/4 px-3 py-3">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-5 text-2xl font-semibold">{{ room.name }}</h2>
+               <button onclick="contactarWhatsApp('{{ profesor.telefono }}')" class="px-5 py-3 block rounded-xl text-white bg-teal-600 hover:bg-teal-700">Contactar por WhatsApp</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function contactarWhatsApp(numeroTelefono) {
+
+            var mensaje = encodeURIComponent('Hola, estoy interesado en tus servicios.');
+            var enlaceWhatsApp = 'https://wa.me/' + numeroTelefono + '/?text=' + mensaje;
+            window.open(enlaceWhatsApp);
+        }
+    </script>
+
+    {% endblock %}
+</body>
+
+{% else %}
+
+<body class="bg-teal-600">
+    <nav class="flex items-center justify-content-between px-4 py-6 bg-teal-800">
+        <div>
+            <a href="/" class="text-xl text-white">ProfeDelivery</a>
+        </div>
+        <div class="auth-links flex items-center space-x-4">
+        </div>
+    </nav>
+    <div class="p-10 lg:p-20 text-center">
+        <h1 class="text-3xl lg:text-6xl text-white"> Para acceder a esta funcionalidad, es necesario registrarse primero o logearse. Lamentablemente, esta opción no está disponible sin un registro previo.</h1>
+    </div>
+    <div class="p-10 lg:p-20 text-center">
+        <a class="text-3xl btn btn-primary text-white" href="{% url "proyecto:registro" %}" role="button">|Registrarse</a>
+        <a class="text-3xl btn btn-primary text-white" >|</a>
+        <a class="text-3xl btn btn-primary text-white" href="{% url 'login' %}" role="button">Logearse|</a>
+    </div>
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+{% endif %}
+
+</html>
