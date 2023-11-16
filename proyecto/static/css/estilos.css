@@ -1,7 +1,6 @@
-
-
 .navbar {
-    background-color: #439A97;
+    background: linear-gradient(45deg, #176B87, #04364A);
+    backdrop-filter: blur(5px);
     color: #fff;
     padding: 10px 0;
     overflow: hidden;
@@ -21,14 +20,19 @@
 }
 
 .button {
-    background-color: #296364;
+    background-color: #04364A;
+    text-decoration: none;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Agrega una transición a la propiedad transform */
 }
-
+.button:hover {
+    background-color: #031E28;
+    transform: scale(1.05); /* Hace que el botón se agrande ligeramente al pasar el mouse */
+}
 
 .auth-links a {
     text-decoration: none;
@@ -37,9 +41,6 @@
     font-family: Arial, sans-serif; 
 }
 
-
-/*background: -webkit-linear-gradient(to right, hsla(152, 77%, 77%, 0.555), hsla(164, 35%, 19%, 0.412)), url('proyecto/img/profe-delivery.png');  /* Chrome 10-25, Safari 5.1-6 */
-/*background: linear-gradient(to right, hsla(152, 78%, 77%, 0.888), hsla(164, 35%, 19%, 0.811)), url('proyecto/img/profe-delivery.png'); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
 .content {
@@ -69,7 +70,7 @@ footer {
 }
 
 .search-bar button {
-    background-color: #296364;
+    background-color: #04364A;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -83,7 +84,9 @@ body {
     padding: 0;
     position: relative;
     min-height: 100vh;
-    background-color: #ffe6e6;
+    background: url('ruta/de/tu/imagen-de-fondo.jpg') center / cover fixed no-repeat;
+    background: linear-gradient(45deg, #64CCC5, #DAFFFB), url('ruta/de/tu/imagen-de-fondo.jpg') center / cover fixed no-repeat;
+    backdrop-filter: blur(10px);
 }
 
 /* Estilos para el contenido principal */
@@ -107,9 +110,13 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.container.text-center {
+    margin-top: 50px; /* Ajusta el espacio superior del contenedor principal */
+}
 h2 {
     text-align: center;
-    color: #0078D4; /* Color azul de Microsoft */
+    color: #04364A; /* Color azul de Microsoft */
 }
 label {
     color: #333;
@@ -138,7 +145,59 @@ input[type="submit"] {
     border-radius: 3px;
     cursor: pointer;
 }
+
 input[type="submit"]:hover {
-    background-color: #005A9E; /* Color azul oscuro de Microsoft al pasar el mouse */
+    background-color: #005A9E;
+}
+/* Estilo del formulario */
+.my-form {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo de los campos de búsqueda */
+.my-form .form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.my-form .form-group {
+    margin-bottom: 15px;
+}
+
+/* Estilo de los inputs y select */
+.my-form .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Estilos sin animaciones */
+.animated-title {
+    font-size: 3em;
+}
+
+.animated-image-container {
+    max-width: 100%; /* Esto hace que la imagen no supere el ancho del contenedor */
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.animated-image {
+    width: 100%;
+    height: auto;
+    transform: scale(1.2);
+    transition: transform 0.5s ease-out;
+}
+
+.animated-text {
+    font-size: 1.2em;
+    margin-bottom: 20px;
 }
 
