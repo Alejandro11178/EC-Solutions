@@ -31,5 +31,8 @@ urlpatterns = [
     path('logout/',login_required(logoutUsuario), name='logout'),
     path('mensajeria/<slug:slug>', room , name='room' ),
     path('mensajeria/chat/', Chat_pai , name='chat'),
+    path('chat_pai/', views.Chat_pai, name='chat_pai'),
+    path('home/', views.Home.as_view(), name='home'),
+    path('registro/', views.registro, name='registro'),
 
 ]
